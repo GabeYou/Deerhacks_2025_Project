@@ -1,116 +1,128 @@
 {
     "animals": [
-      {
-        "animal": "Gayal (Bos frontalis)",
-        "wild_ancestor": "Gayal (Bos frontalis) with significant introgression from other Bos species",
-        "domestication_date": "5000 BCE",
-        "geographic_origin": "Southeast Asia, Northeast India",
-        "uses": ["meat", "milk", "horns", "dung"],
-        "physical_changes": "Slight physical changes",
-        "status": "Somewhat common in captivity, threatened in the wild",
-        "category": "1b Bovidae"
-      },
-      {
-        "animal": "Domestic duck (Anas platyrhynchos domesticus)",
-        "wild_ancestor": "Common mallard (Anas platyrhynchos platyrhynchos)",
-        "domestication_date": "4000 BCE",
-        "geographic_origin": "China",
-        "uses": ["meat", "eggs", "feathers", "manure", "guarding", "pest control", "weed control", "ornamental", "show", "pets"],
-        "physical_changes": "Considerable physical changes",
-        "status": "Common in captivity, but more abundant in the wild",
-        "category": "2a Anseriformes"
-      },
-      {
-        "animal": "Domestic water buffalo (Bubalus bubalis)",
-        "wild_ancestor": "Wild water buffalo (Bubalus arnee)",
-        "domestication_date": "4000 BCE",
-        "geographic_origin": "India, China, the Philippines",
-        "uses": ["meat", "milk", "horns", "dung", "working", "plowing", "fighting", "racing", "draft", "mount", "lawn mowing", "show"],
-        "physical_changes": "Mainly unchanged from the wild animal",
-        "status": "Common in captivity, endangered in the wild, feral populations common in parts of Australia and South America",
-        "category": "1b Bovidae"
-      },
-      {
-        "animal": "Dromedary or Arabian camel (Camelus dromedarius)",
-        "wild_ancestor": "Unknown",
-        "domestication_date": "4000 BCE",
-        "geographic_origin": "Arabia, the Horn of Africa",
-        "uses": ["meat", "milk", "urine", "racing", "hunting", "pack", "mount", "show", "pets"],
-        "physical_changes": "Tame, few physical changes",
-        "status": "Moderately common in captivity, small feral population in original range, significant feral population in Australia, truly wild dromedaries may be extinct",
-        "category": "1a Artiodactyla except Bovidae"
-      },
-      {
-        "animal": "Western honey bee (Apis mellifera)",
-        "wild_ancestor": "Various subspecies of the wild honey bee",
-        "domestication_date": "4000 BCE",
-        "geographic_origin": "Europe, Georgia, North Africa",
-        "uses": ["honey", "wax", "propolis", "bee brood", "royal jelly", "venom", "pollen", "pollination", "research"],
-        "physical_changes": "Some physical and behavioral changes, actual domestication status is still a point of contention",
-        "status": "Very common in captivity, feral populations common, extent of status in the wild unclear",
-        "category": "6a Hymenoptera"
-      },
-      {
-        "animal": "Domestic horse (Equus caballus)",
-        "wild_ancestor": "Extinct unknown population of the wild horse (Equus ferus), possibly the tarpan or European wild horse (E. f. ferus)",
-        "domestication_date": "4000-3500 BCE",
-        "geographic_origin": "Ukraine or Kazakhstan",
-        "uses": ["milk", "meat", "hair", "manure", "working", "plowing", "fighting", "racing", "servicing", "guiding", "draft", "pack", "execution", "lawn mowing", "weed control", "show", "pets"],
-        "physical_changes": "Tame, some physical changes, mainly in colouration",
-        "status": "Common in captivity, very rare in the wild, feral populations common",
-        "category": "1e Other mammals"
-      },
-      {
-        "animal": "Bali cattle (Bos javanicus domesticus)",
-        "wild_ancestor": "Banteng (Bos javanicus)",
-        "domestication_date": "3500 BCE",
-        "geographic_origin": "Bali, Indonesia",
-        "uses": ["meat", "milk", "horns", "dung", "working", "plowing", "draft", "show"],
-        "physical_changes": "Slight physical changes",
-        "status": "Common in captivity, endangered in the wild",
-        "category": "1b Bovidae"
-      },
-      {
-        "animal": "Domestic silkmoth (Bombyx mori)",
-        "wild_ancestor": "Wild silkmoth (Bombyx mandarina)",
-        "domestication_date": "3000 BCE",
-        "geographic_origin": "China",
-        "uses": ["silk", "animal feed", "pets"],
-        "physical_changes": "Tame/held in captivity, some physical changes",
-        "status": "Fairly common in captivity, extent of status in the wild unclear",
-        "category": "6b Other insects"
-      },
-      {
-        "animal": "Eri silkmoth (Samia ricini)",
-        "wild_ancestor": "Ailanthus silkmoth (Samia cynthia) and wild eri silkmoth (Samia canningi)",
-        "domestication_date": "Date uncertain",
-        "geographic_origin": "India",
-        "uses": ["silk", "pets"],
-        "physical_changes": "Tame/held in captivity, some physical changes",
-        "status": "Common in captivity",
-        "category": "6b Other insects"
-      },
-      {
-        "animal": "Domestic pigeon (Columba livia domestica)",
-        "wild_ancestor": "Rock dove (Columba livia)",
-        "domestication_date": "3000 BCE",
-        "geographic_origin": "Mediterranean Basin",
-        "uses": ["meat", "manure", "racing", "messenger", "ornamental", "show", "pets"],
-        "physical_changes": "Artificially selected and bred into many varieties including meat breeds, racing/messenger breeds and fancy plumage breeds",
-        "status": "Relatively common in captivity, very common in the wild, feral populations extremely abundant",
-        "category": "2c Columbiformes"
-      },
-      {
-        "animal": "Domestic goose and domestic swan goose (Anser anser domesticus and Anser cygnoides domesticus)",
-        "wild_ancestor": "Greylag goose (Anser anser) and swan goose (A. cygnoides)",
-        "domestication_date": "3000 BCE for A. anser, date uncertain for A. cygnoides",
-        "geographic_origin": "Egypt (A. anser), China (A. cygnoides)",
-        "uses": ["meat", "eggs", "feathers", "manure", "guarding", "alarming", "pest control", "weed control", "show", "pets"],
-        "physical_changes": "Considerable physical changes",
-        "status": "Common in the wild and in captivity",
-        "category": "2a Anseriformes"
-      },
       
+        {
+            "animal": "Gayal",
+            "scientific_name": "Bos frontalis",
+            "wild_ancestor": "Gayal (Bos frontalis) with significant introgression from other Bos species",
+            "domestication_date": "5000 BCE",
+            "origin": "Southeast Asia, Northeast India",
+            "uses": ["meat", "milk", "horns", "dung"],
+            "domestication_changes": "Slight physical changes",
+            "current_status": "Somewhat common in captivity, threatened in the wild",
+            "taxonomic_class": "1b Bovidae"
+          },
+          {
+            "animal": "Domestic duck",
+            "scientific_name": "Anas platyrhynchos domesticus",
+            "wild_ancestor": "Common mallard (Anas platyrhynchos platyrhynchos)",
+            "domestication_date": "4000 BCE",
+            "origin": "China",
+            "uses": ["meat", "eggs", "feathers", "manure", "guarding", "pest control", "weed control", "ornamental", "show", "pets"],
+            "domestication_changes": "Considerable physical changes",
+            "current_status": "Common in captivity, but more abundant in the wild",
+            "taxonomic_class": "2a Anseriformes"
+          },
+          {
+            "animal": "Domestic water buffalo",
+            "scientific_name": "Bubalus bubalis",
+            "wild_ancestor": "Wild water buffalo (Bubalus arnee)",
+            "domestication_date": "4000 BCE",
+            "origin": "India, China, the Philippines",
+            "uses": ["meat", "milk", "horns", "dung", "working", "plowing", "fighting", "racing", "draft", "mount", "lawn mowing", "show"],
+            "domestication_changes": "Mainly unchanged from the wild animal",
+            "current_status": "Common in captivity, endangered in the wild, feral populations common in parts of Australia and South America",
+            "taxonomic_class": "1b Bovidae"
+          },
+          {
+            "animal": " Arabian camel",
+            "scientific_name": "Camelus dromedarius",
+            "wild_ancestor": "Unknown",
+            "domestication_date": "4000 BCE",
+            "origin": "Arabia, the Horn of Africa",
+            "uses": ["meat", "milk", "urine", "racing", "hunting", "pack", "mount", "show", "pets"],
+            "domestication_changes": "Tame, few physical changes",
+            "current_status": "Moderately common in captivity, small feral population in original range, significant feral population in Australia, truly wild dromedaries may be extinct",
+            "taxonomic_class": "1a Artiodactyla except Bovidae"
+          },
+          {
+            "animal": "Western honey bee",
+            "scientific_name": "Apis mellifera",
+            "wild_ancestor": "Various subspecies of the wild honey bee",
+            "domestication_date": "4000 BCE",
+            "origin": "Europe, Georgia, North Africa",
+            "uses": ["honey", "wax", "propolis", "bee brood", "royal jelly", "venom", "pollen", "pollination", "research"],
+            "domestication_changes": "Some physical and behavioral changes, actual domestication status is still a point of contention",
+            "current_status": "Very common in captivity, feral populations common, extent of status in the wild unclear",
+            "taxonomic_class": "6a Hymenoptera"
+          },
+          {
+            "animal": "Domestic horse",
+            "scientific_name": "Equus caballus",
+            "wild_ancestor": "Extinct unknown population of the wild horse (Equus ferus), possibly the tarpan or European wild horse (E. f. ferus)",
+            "domestication_date": "4000-3500 BCE",
+            "origin": "Ukraine or Kazakhstan",
+            "uses": ["milk", "meat", "hair", "manure", "working", "plowing", "fighting", "racing", "servicing", "guiding", "draft", "pack", "execution", "lawn mowing", "weed control", "show", "pets"],
+            "domestication_changes": "Tame, some physical changes, mainly in colouration",
+            "current_status": "Common in captivity, very rare in the wild, feral populations common",
+            "taxonomic_class": "1e Other mammals"
+          },
+          {
+            "animal": "Bali cattle",
+            "scientific_name": "Bos javanicus domesticus",
+            "wild_ancestor": "Banteng (Bos javanicus)",
+            "domestication_date": "3500 BCE",
+            "origin": "Bali, Indonesia",
+            "uses": ["meat", "milk", "horns", "dung", "working", "plowing", "draft", "show"],
+            "domestication_changes": "Slight physical changes",
+            "current_status": "Common in captivity, endangered in the wild",
+            "taxonomic_class": "1b Bovidae"
+          },
+          {
+            "animal": "Domestic silkmoth",
+            "scientific_name": "Bombyx mori",
+            "wild_ancestor": "Wild silkmoth (Bombyx mandarina)",
+            "domestication_date": "3000 BCE",
+            "origin": "China",
+            "uses": ["silk", "animal feed", "pets"],
+            "domestication_changes": "Tame/held in captivity, some physical changes",
+            "current_status": "Fairly common in captivity, extent of status in the wild unclear",
+            "taxonomic_class": "6b Other insects"
+          },
+          {
+            "animal": "Eri silkmoth",
+            "scientific_name": "Samia ricini",
+            "wild_ancestor": "Ailanthus silkmoth (Samia cynthia) and wild eri silkmoth (Samia canningi)",
+            "domestication_date": "Date uncertain",
+            "origin": "India",
+            "uses": ["silk", "pets"],
+            "domestication_changes": "Tame/held in captivity, some physical changes",
+            "current_status": "Common in captivity",
+            "taxonomic_class": "6b Other insects"
+          },
+          {
+            "animal": "Domestic pigeon",
+            "scientific_name": "Columba livia domestica",
+            "wild_ancestor": "Rock dove (Columba livia)",
+            "domestication_date": "3000 BCE",
+            "origin": "Mediterranean Basin",
+            "uses": ["meat", "manure", "racing", "messenger", "ornamental", "show", "pets"],
+            "domestication_changes": "Artificially selected and bred into many varieties including meat breeds, racing/messenger breeds and fancy plumage breeds",
+            "current_status": "Relatively common in captivity, very common in the wild, feral populations extremely abundant",
+            "taxonomic_class": "2c Columbiformes"
+          },
+          {
+            "animal": "Domestic goose ",
+            "scientific_name": "Anser anser domesticus ",
+            "wild_ancestor": "Greylag goose (Anser anser)",
+            "domestication_date": "3000 BCE for A. anser, date uncertain for A. cygnoides",
+            "origin": "Egypt (A. anser), China (A. cygnoides)",
+            "uses": ["meat", "eggs", "feathers", "manure", "guarding", "alarming", "pest control", "weed control", "show", "pets"],
+            "domestication_changes": "Considerable physical changes",
+            "current_status": "Common in the wild and in captivity",
+            "taxonomic_class": "2a Anseriformes"
+          },
+          
     {
         "animal": "Domestic dog",
         "scientific_name": "Canis familiaris",
