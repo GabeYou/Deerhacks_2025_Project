@@ -1,0 +1,108 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Navbar */
+header {
+    background: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.site-name h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.login-btn {
+    background: #ffdd00;
+    border: none;
+    padding: 10px 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Upload Image Section */
+.upload-section {
+    text-align: center;
+    margin: 50px auto;
+    padding: 30px;
+    border: 2px dashed #ccc;
+    width: 50%;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+.upload-section h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#imageInput {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background: black;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background: #333;
+}
+
+#preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the content horizontally */
+    justify-content: center; /* Centers the content vertically (if needed) */
+    margin-top: 20px;
+    text-align: center;
+}
+
+#preview-container h3 {
+    margin-bottom: 10px;
+}
+
+#previewImage {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+/* Footer */
+footer {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
