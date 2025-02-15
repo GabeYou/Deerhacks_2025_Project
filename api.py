@@ -3,15 +3,37 @@ import requests
 import base64
 import json
 import wikipediaapi
+import os
+import random
 
 # OpenAI API Key (Replace with your actual API key)
-API_KEY = ""
+API_KEY = os.getenv("API_KEY")
 
 # OpenAI API endpoint
 OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 
 # Flask App
 app = Flask(__name__)
+
+with open("Animals.json", "r", encoding="utf-8") as file:
+    animals_data = json.load(file)["animals"]
+
+@app.route('/animals', methods=['GET'])
+def get_random_animals():
+    """
+    Returns `n` random animals from animals.json.
+    Usage: /animals?count=5
+    """
+    # Get 'count' parameter from URL (default = 1)
+    count = request.args.get("count", default=1, type=int)
+
+    # Ensure `count` does not exceed total animals
+    count = min(count, len(animals_data))
+
+    # Select `count` random animals
+    selected_animals = random.sample(animals_data, count)
+
+    return jsonify({"count": count, "animals": selected_animals})
 
 ### 🚀 Endpoint 1: Classify Animal from Image ###
 @app.route('/classify-animal', methods=['POST'])
