@@ -17,10 +17,10 @@
     </header>
     <section class="upload-section">
         <h2>Upload Your Image</h2>
-        <form id="upload-form">
+        <form id="upload-form" enctype="multipart/form-data">
             <input type="file" id="imageInput" accept="image/*">
             <button type="submit">Upload</button>
-        </form>
+        </form>  
         <div id="preview-container">
             <h3>Preview:</h3>
             <img id="previewImage" src="" alt="Image Preview" style="display: none; max-width: 300px;">

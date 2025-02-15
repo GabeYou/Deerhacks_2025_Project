@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/GabeYou/Deerhacks_2025_Project#readme",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1"
   }
 }
