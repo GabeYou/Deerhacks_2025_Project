@@ -3,7 +3,7 @@ import base64
 import json
 
 # OpenAI API Key (Replace with your actual API key)
-API_KEY = "key"
+API_KEY = "Key"
 
 # Path to the image file
 image_path = "image.jpg"
@@ -52,6 +52,6 @@ response = requests.post(url, json=payload, headers=headers)
 if response.status_code == 200:
     result = response.json()
     animal_name = result["choices"][0]["message"]["content"]
-    print("Animal identified:", animal_name)
+    print(animal_name)
 else:
     print("Error:", response.json())
