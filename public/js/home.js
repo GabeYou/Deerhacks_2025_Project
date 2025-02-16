@@ -173,6 +173,62 @@ document.addEventListener("DOMContentLoaded", function () {
             quizResult.style.color = "red";
         }
     });
+
+    const startGameBtn = document.getElementById("start-game");
+    const gameContainer = document.getElementById("game-container");
+    const factDisplay = document.getElementById("fact-display");
+    const imageGrid = document.getElementById("image-grid");
+
+    let correctAnimalImage = "";
+    let facts = [];
+    let factIndex = 0;
+
+    startGameBtn.addEventListener("click", function () {
+        fetch("https://cuddly-swim-production.up.railway.app/trivia-game")
+            .then(response => response.json())
+            .then(data => {
+                // Reset game state
+                factIndex = 0;
+                facts = data.facts;
+                correctAnimalImage = data.correct_animal_image;
+                imageGrid.innerHTML = "";
+
+                // Show first fact
+                factDisplay.textContent = facts[factIndex];
+
+                // Display all 9 images
+                data.image_urls.forEach(imageUrl => {
+                    const img = document.createElement("img");
+                    img.src = imageUrl;
+                    img.classList.add("animal-tile");
+
+                    // Click event for selecting an answer
+                    img.addEventListener("click", function () {
+                        if (img.src === correctAnimalImage) {
+                            factDisplay.textContent = "✅ Correct! You found the right animal!";
+                            // Optionally: Disable further clicks
+                            imageGrid.querySelectorAll("img").forEach(img => img.style.pointerEvents = "none");
+                        } else {
+                            img.style.opacity = "0.3"; // Fade out wrong choice
+                            img.style.pointerEvents = "none"; // Disable click
+
+                            // Show next fact
+                            factIndex++;
+                            if (factIndex < facts.length) {
+                                factDisplay.textContent = facts[factIndex];
+                            } else {
+                                factDisplay.textContent = "❌ No more hints! The answer was the correct animal.";
+                            }
+                        }
+                    });
+
+                    imageGrid.appendChild(img);
+                });
+
+                gameContainer.style.display = "block";
+            })
+            .catch(error => console.error("Error fetching trivia game:", error));
+    });
 });
 
 const pokedexBtn = document.getElementById("pokedex-btn");

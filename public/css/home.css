@@ -471,3 +471,28 @@ footer {
 .modal-content a:hover {
     text-decoration: underline;
 }
+
+.game-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.animal-tile {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.animal-tile:hover {
+    opacity: 0.7;
+}
