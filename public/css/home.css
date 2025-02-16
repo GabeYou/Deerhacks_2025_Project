@@ -387,18 +387,17 @@ footer {
     position: relative; /* Needed for absolute positioning of back button */
 }
 
-/* Move Back button to the top-left corner */
 #back-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: #ff5555;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
+  position: absolute;
+  top: 0px;
+  right: 0px;      /* Position in top-right corner */
+  background: #ff5555;
+  color: white;
+  border: none;
+  padding: 2px 2px;
+  border-radius: 1px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 #back-btn:hover {
