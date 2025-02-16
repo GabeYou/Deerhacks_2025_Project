@@ -18,33 +18,20 @@ app = Flask(__name__)
 with open("Animals.json", "r", encoding="utf-8") as file:
     animals_data = json.load(file)["animals"]
 
-@app.route('/animals', methods=['GET'])
-def get_random_animals():
+# -------------------- Helper Functions -------------------- #
+
+def get_random_animals_helper(count):
     """
     Returns `n` random animals from animals.json.
-    Usage: /animals?count=5
     """
-    # Get 'count' parameter from URL (default = 1)
-    count = request.args.get("count", default=1, type=int)
+    count = min(count, len(animals_data))  # Ensure `count` does not exceed total
+    return random.sample(animals_data, count)
 
-    # Ensure `count` does not exceed total animals
-    count = min(count, len(animals_data))
 
-    # Select `count` random animals
-    selected_animals = random.sample(animals_data, count)
-
-    return jsonify({"count": count, "animals": selected_animals})
-
-### 🚀 Endpoint 1: Classify Animal from Image ###
-@app.route('/classify-animal', methods=['POST'])
-def classify_animal():
+def classify_animal_helper(image_file):
     """
-    Accepts an image file and identifies the animal in it.
+    Calls OpenAI to classify an animal in the image.
     """
-    if 'file' not in request.files:
-        return jsonify({"error": "No image file uploaded"}), 400
-
-    image_file = request.files['file']
     base64_image = base64.b64encode(image_file.read()).decode("utf-8")
 
     # OpenAI request payload
@@ -64,15 +51,12 @@ def classify_animal():
     response = requests.post(OPENAI_URL, json=payload, headers=headers)
 
     if response.status_code == 200:
-        animal_name = response.json()["choices"][0]["message"]["content"].strip()
-        return jsonify({"animal": animal_name})
+        return response.json()["choices"][0]["message"]["content"].strip()
     else:
-        return jsonify({"error": "Failed to classify image", "details": response.json()}), 500
+        return None
 
 
-### 🚀 Endpoint 2: Fetch Wikipedia Animal Facts ###
-@app.route('/animal-facts/<animal_name>', methods=['GET'])
-def get_animal_facts(animal_name):
+def get_animal_facts_helper(animal_name):
     """
     Fetches Wikipedia summary and extracts 5 facts using OpenAI.
     """
@@ -80,18 +64,26 @@ def get_animal_facts(animal_name):
     page = wiki.page(animal_name)
 
     if not page.exists():
-        return jsonify({"error": f"No Wikipedia page found for '{animal_name}'."}), 404
+        return None
 
     wikipedia_data = page.summary
 
     system_prompt = (
-        "You are an AI assistant that strictly extracts information only from the given Wikipedia data. "
-        "Do not use any external knowledge, only rely on the provided text. "
-        "If the information is missing, say 'Not enough information provided.' "
-        "Your task is to extract exactly 5 common facts about the animal."
-    )
+    	"You are an AI assistant that strictly extracts information only from the given Wikipedia data. "
+    	"Do not use any external knowledge, only rely on the provided text. "
+  	"If the information is missing, say 'Not enough information provided.' "
+    	"Your task is to extract exactly 5 clear, short, and distinct facts about the animal, in proper English."
+	)
 
-    user_query = "List 5 common facts about this animal, using only the provided data. Do not give the animal's name; refer to the animal as 'this animal', treat this as a trivia."
+    user_query = (
+    	"List exactly 5 common facts about this animal, using only the provided data. Do not give the animal's name; refer to the animal as 'this animal', treat this as a trivia."
+    	"Format the response as plain text with each fact on a new line, like this:\n"
+    	"1. Fact one.\n"
+    	"2. Fact two.\n"
+    	"3. Fact three.\n"
+    	"4. Fact four.\n"
+    	"5. Fact five."
+	)
 
     payload = {
         "model": "gpt-4o-mini",
@@ -106,10 +98,95 @@ def get_animal_facts(animal_name):
     response = requests.post(OPENAI_URL, json=payload, headers=headers)
 
     if response.status_code == 200:
-        facts = response.json()["choices"][0]["message"]["content"]
+        return response.json()["choices"][0]["message"]["content"]
+    else:
+        return None
+
+
+def classify_helper(image_file):
+    """
+    Classifies an image, fetches real & fake facts using helper functions instead of API calls.
+    """
+    # Step 1: Classify the animal using the helper function
+    classified_animal = classify_animal_helper(image_file)
+    if not classified_animal:
+        return {"error": "Could not determine the animal"}, 400
+
+    # Step 2: Get 2 real facts using the helper function and split them correctly
+    real_facts_raw = get_animal_facts_helper(classified_animal)
+    if not real_facts_raw:
+        return {"error": f"No facts found for '{classified_animal}'"}, 404
+
+    real_facts = real_facts_raw.split("\n")  # Split into list of facts
+    real_facts = [fact.strip() for fact in real_facts if fact.strip()]  # Remove empty entries
+    real_facts = real_facts[:2]  # Take the first 2 real facts
+
+    # Step 3: Get 2 random animals for fake facts using the helper function
+    fake_animals = get_random_animals_helper(2)
+    fake_facts = []
+
+    # Step 4: Fetch 1 fact from each fake animal using the helper function
+    for animal in fake_animals:
+        animal_name = animal.get("animal", "").strip()
+        if not animal_name:
+            continue
+
+        fake_fact_raw = get_animal_facts_helper(animal_name)
+        if fake_fact_raw:
+            fake_fact_list = fake_fact_raw.split("\n")  # Split into list of facts
+            fake_fact_list = [fact.strip() for fact in fake_fact_list if fact.strip()]  # Remove empty entries
+
+            if fake_fact_list:
+                fake_facts.append(fake_fact_list[0])  # Pick the first fact
+
+        # Ensure we get exactly 2 fake facts
+        if len(fake_facts) == 2:
+            break
+
+    return {
+        "classified_animal": classified_animal,
+        "real_facts": real_facts,
+        "fake_facts": fake_facts
+    }, 200
+
+
+# -------------------- Routes -------------------- #
+
+@app.route('/animals', methods=['GET'])
+def get_random_animals():
+    count = request.args.get("count", default=1, type=int)
+    animals = get_random_animals_helper(count)
+    return jsonify({"count": count, "animals": animals})
+
+
+@app.route('/classify-animal', methods=['POST'])
+def classify_animal():
+    if 'file' not in request.files:
+        return jsonify({"error": "No image file uploaded"}), 400
+
+    animal_name = classify_animal_helper(request.files['file'])
+    if animal_name:
+        return jsonify({"animal": animal_name})
+    else:
+        return jsonify({"error": "Failed to classify image"}), 500
+
+
+@app.route('/animal-facts/<animal_name>', methods=['GET'])
+def get_animal_facts(animal_name):
+    facts = get_animal_facts_helper(animal_name)
+    if facts:
         return jsonify({"animal": animal_name, "facts": facts})
     else:
-        return jsonify({"error": "Failed to retrieve facts", "details": response.json()}), 500
+        return jsonify({"error": f"No Wikipedia page found for '{animal_name}'"}), 404
+
+
+@app.route('/classify', methods=['POST'])
+def classify():
+    if 'file' not in request.files:
+        return jsonify({"error": "No image file uploaded"}), 400
+
+    response, status_code = classify_helper(request.files['file'])
+    return jsonify(response), status_code
 
 
 if __name__ == '__main__':
