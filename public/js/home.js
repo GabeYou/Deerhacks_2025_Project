@@ -247,3 +247,88 @@ backBtn.addEventListener("click", () => {
     pokedexList.style.display = "block";
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const loginBtn = document.querySelector(".login-btn");
+    const loginModal = document.getElementById("login-modal");
+    const closeModal = document.querySelector("#login-modal .close-btn");
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+    const switchToRegister = document.getElementById("switch-to-register");
+    const switchToLogin = document.getElementById("switch-to-login");
+    const modalTitle = document.getElementById("modal-title");
+    const loginMessage = document.getElementById("login-message");
+
+    loginBtn.addEventListener("click", () => {
+        loginModal.style.display = "flex";
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
+        modalTitle.innerText = "Login";
+        loginMessage.innerText = "";
+    });
+
+    closeModal.addEventListener("click", () => {
+        loginModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+        if (event.target === loginModal) {
+            loginModal.style.display = "none";
+        }
+    });
+
+    switchToRegister.addEventListener("click", (event) => {
+        event.preventDefault();
+        loginForm.style.display = "none";
+        registerForm.style.display = "block";
+        modalTitle.innerText = "Register";
+        loginMessage.innerText = "";
+    });
+
+    switchToLogin.addEventListener("click", (event) => {
+        event.preventDefault();
+        registerForm.style.display = "none";
+        loginForm.style.display = "block";
+        modalTitle.innerText = "Login";
+        loginMessage.innerText = "";
+    });
+
+    registerForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const username = document.getElementById("register-username").value.trim();
+        const password = document.getElementById("register-password").value.trim();
+
+        if (localStorage.getItem(username)) {
+            loginMessage.innerText = "Username already exists!";
+            loginMessage.style.color = "red";
+        } else {
+            localStorage.setItem(username, password);
+            loginMessage.innerText = "Registration successful. You can now log in.";
+            loginMessage.style.color = "green";
+
+            setTimeout(() => {
+                registerForm.style.display = "none";
+                loginForm.style.display = "block";
+                modalTitle.innerText = "Login";
+                loginMessage.innerText = "";
+            }, 1500);
+        }
+    });
+
+    loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const username = document.getElementById("login-username").value.trim();
+        const password = document.getElementById("login-password").value.trim();
+
+        if (localStorage.getItem(username) === password) {
+            loginMessage.innerText = "Login successful.";
+            loginMessage.style.color = "green";
+
+            setTimeout(() => {
+                loginModal.style.display = "none";
+            }, 1000);
+        } else {
+            loginMessage.innerText = "Invalid username or password.";
+            loginMessage.style.color = "red";
+        }
+    });
+});
