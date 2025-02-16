@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // Fetch Wikipedia image
             const wikiImageResponse = await fetch(
                 `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(data.animal)}`
-                `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(data.animal)}`
             );
             const wikiData = await wikiImageResponse.json();
 

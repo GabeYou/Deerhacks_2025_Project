@@ -54,6 +54,8 @@ app.post('/upload-and-get-facts', upload.single('image'), async (req, res) => {
 
         const animalFacts = animalFactsResponse.data.facts;
 
+        console.log(`${animalFacts}`);
+
         res.json({
             message: 'Image successfully uploaded, classified, and facts retrieved',
             animal: classifiedAnimal,
