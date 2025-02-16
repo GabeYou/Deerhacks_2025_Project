@@ -1,0 +1,473 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Ensure the full page fills the viewport */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content should expand to push footer down */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Navbar */
+header {
+    background: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.site-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Logo Styling */
+.logo {
+    width: 50px;
+    height: auto;
+}
+
+.site-name {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    line-height: 1;
+}
+
+/* Login Button */
+.login-btn {
+    background: #ffdd00;
+    border: none;
+    padding: 10px 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+    display: none;
+}
+
+.login-btn:hover {
+    background-color: #e6c200;
+    color: black;
+}
+
+#imageInput {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background: black;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background: #333;
+}
+
+/* Center preview image */
+#preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#preview-container h3 {
+    margin-bottom: 10px;
+}
+
+#previewImage {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+footer {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+}
+
+/* Upload Image Section */
+.upload-section {
+    text-align: center;
+    margin: 20px auto;
+    padding: 30px;
+    border: 2px dashed #ccc;
+    width: 50%;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+.upload-section h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.loading-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.loading-bar {
+    width: 60%;
+    height: 5px;
+    background: linear-gradient(to right, #ffdd00, #ffa500);
+    animation: loadingAnimation 2s infinite linear;
+    border-radius: 5px;
+}
+
+@keyframes loadingAnimation {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+.result-section {
+    text-align: center;
+    width: 60%;
+}
+
+#result {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Animal Image */
+#animalImageContainer {
+    display: none;
+    margin-top: 20px;
+}
+
+#animalImage {
+    max-width: 300px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Fun Facts Dropdown Button */
+.facts-dropdown {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#toggleFactsBtn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+#toggleFactsBtn:hover {
+    color: #0056b3;
+}
+
+/* Facts Box */
+.facts-box {
+    display: none;
+    margin-top: 10px;
+    padding: 15px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background: #f9f9f9;
+    width: 80%;
+    max-width: 600px;
+    text-align: left;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fact-item {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.805);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.quiz-section {
+    display: none;
+    margin-top: 10px;
+    padding: 15px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background: #f9f9f9;
+    width: 80%;
+    max-width: 600px;
+    text-align: left;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.quiz-section h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.quiz-section p {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+/* Individual Quiz Fact */
+.quiz-item {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.805);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Quiz Checkbox Styling */
+.quiz-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Submit Button (Same Style as Upload Button) */
+#submitQuizBtn {
+    background: black;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+#submitQuizBtn:hover {
+    background: #333;
+}
+
+/* Quiz Result Styling */
+.quiz-result {
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+/* Pokedex button */
+#pokedex-btn {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    background-color: #ffdd00;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#pokedex-btn:hover {
+    background-color: #e6c200;
+    color: black;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Pokedex List */
+.pokedex-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Pokedex Entry View */
+.pokedex-entry.hidden {
+    display: none;
+}
+.pokedex-entry {
+    min-width: 300px;  
+    min-height: 250px; 
+    max-width: 80%;    
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Needed for absolute positioning of back button */
+}
+
+#back-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;      /* Position in top-right corner */
+  background: #ff5555;
+  color: white;
+  border: none;
+  padding: 2px 2px;
+  border-radius: 1px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#back-btn:hover {
+    background: #cc4444;
+}
+
+.pokedex-entry img {
+    max-width: 200px;
+    border-radius: 10px;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffdd00;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+}
+
+.modal-content button:hover {
+    background-color: #e6c200;
+    color: black;
+}
+
+.modal-content p {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.modal-content a {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.modal-content a:hover {
+    text-decoration: underline;
+}
