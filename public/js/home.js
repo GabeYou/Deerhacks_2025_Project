@@ -4,12 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const previewImage = document.getElementById("previewImage");
     const loadingBar = document.getElementById("loadingBar");
     const resultDiv = document.getElementById("result");
-    const resultDiv = document.getElementById("result");
     const animalImageContainer = document.getElementById("animalImageContainer");
     const animalImage = document.getElementById("animalImage");
-    const factsDropdown = document.getElementById("factsDropdown");
-    const toggleFactsBtn = document.getElementById("toggleFactsBtn");
-    const factsBox = document.getElementById("factsBox");
     const factsDropdown = document.getElementById("factsDropdown");
     const toggleFactsBtn = document.getElementById("toggleFactsBtn");
     const factsBox = document.getElementById("factsBox");
@@ -66,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData();
         formData.append("image", imageInput.files[0]);
 
-        try {
         try {
             const response = await fetch("/upload-and-get-facts", {
                 method: "POST",

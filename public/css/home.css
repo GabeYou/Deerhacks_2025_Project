@@ -187,9 +187,7 @@ footer {
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Fun Facts Dropdown Button */
-.facts-dropdown {
-    text-align: center;
+
 /* Fun Facts Dropdown Button */
 .facts-dropdown {
     text-align: center;
@@ -309,3 +307,96 @@ footer {
     font-size: 18px;
     text-align: center;
 }
+/* Pokedex button */
+#pokedex-btn {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    background-color: #ffcc00;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Pokedex List */
+.pokedex-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Pokedex Entry View */
+.pokedex-entry.hidden {
+    display: none;
+}
+.pokedex-entry {
+    min-width: 300px;  
+    min-height: 250px; 
+    max-width: 80%;    
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Needed for absolute positioning of back button */
+}
+
+/* Move Back button to the top-left corner */
+#back-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff5555;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#back-btn:hover {
+    background: #cc4444;
+}
+
+.pokedex-entry img {
+    max-width: 200px;
+    border-radius: 10px;
+}
+
+
