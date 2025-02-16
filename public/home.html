@@ -10,7 +10,7 @@
     <header>
         <nav>
             <div class="site-brand">
-                <img src="/images/deerhackslogo.png" alt="Discovery Dex Logo" class="logo"> <!-- Add your logo here -->
+                <img src="/images/deerhackslogo.png" alt="Discovery Dex Logo" class="logo">
                 <div class="site-name">
                     <h1>Discovery</h1>
                     <h1>Dex</h1>
@@ -18,28 +18,40 @@
             </div>
             <button class="login-btn">Login</button>
         </nav>
-    </header>    
+    </header>
 
-    <!-- Main Content Wrapper -->
+    <!-- 🎮 Game Section -->
+    <div class="game-section">
+        <h2>Play Game</h2>
+        <button id="start-game">Start Game</button>
+
+        <div id="game-container" style="display: none;">
+            <h3 id="fact-display"></h3> <!-- Fact Display -->
+            <div id="image-grid"></div> <!-- Images -->
+        </div>
+    </div>
+
+    <!-- 📸 Image Upload Section (Moved Lower) -->
     <div class="main-content">
         <section class="upload-section">
             <h2>Upload Your Image</h2>
             <form id="upload-form">
-              <input type="file" id="imageInput" accept="image/*">
-              <button type="submit">Upload</button>
+                <input type="file" id="imageInput" accept="image/*">
+                <button type="submit">Upload</button>
             </form>
             <div id="preview-container">
-              <h3>Preview:</h3>
-              <img id="previewImage" src="" alt="Image Preview" style="display: none; max-width: 300px;">
+                <h3>Preview:</h3>
+                <img id="previewImage" src="" alt="Image Preview" style="display: none; max-width: 300px;">
             </div>
             <div id="result" style="margin-top: 20px; font-size: 18px; font-weight: bold;"></div>
-          </section>
+        </section>
     </div>
 
     <!-- Footer Always Stays at Bottom -->
     <footer>
         <p>&copy; Deerhacks 2025</p>
     </footer>
+
     <script src="/js/home.js"></script>
 </body>
 </html>
