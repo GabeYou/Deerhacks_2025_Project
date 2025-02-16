@@ -18,13 +18,12 @@ app.use(express.static(path.join(__dirname, '../public')));
 /**
  * Upload an image and classify the animal
  */
-app.post('/upload', upload.single('image'), async (req, res) => {
+app.post('/upload-and-get-facts', upload.single('image'), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
 
     try {
-        // Requires Node.js v18+
         const blob = new Blob([req.file.buffer], { type: req.file.mimetype });
         const buffer = Buffer.from(await blob.arrayBuffer());
 
@@ -34,24 +33,30 @@ app.post('/upload', upload.single('image'), async (req, res) => {
             contentType: req.file.mimetype
         });
 
-        const externalAPIResponse = await axios.post(
+        const classificationResponse = await axios.post(
             "https://cuddly-swim-production.up.railway.app/classify-animal",
             formData,
-            {
-                headers: {
-                    ...formData.getHeaders(),
-                }
-            }
+            { headers: { ...formData.getHeaders() } }
         );
-        const classifiedAnimal = externalAPIResponse.data.animal;
 
-        res.json({ 
-            message: 'Image successfully uploaded and classified', 
-            animal: classifiedAnimal 
+        const classifiedAnimal = classificationResponse.data.animal;
+        console.log(`Classified Animal: ${classifiedAnimal}`);
+
+        const animalFactsResponse = await axios.get(
+            `https://cuddly-swim-production.up.railway.app/animal-facts/${encodeURIComponent(classifiedAnimal)}`
+        );
+
+        const animalFacts = animalFactsResponse.data.facts;
+
+        res.json({
+            message: 'Image successfully uploaded, classified, and facts retrieved',
+            animal: classifiedAnimal,
+            facts: animalFacts
         });
+
     } catch (error) {
-        console.error("Error classifying image:", error);
-        res.status(500).json({ error: 'Classification failed' });
+        console.error("Error processing request:", error);
+        res.status(500).json({ error: 'Classification or fact retrieval failed' });
     }
 });
 

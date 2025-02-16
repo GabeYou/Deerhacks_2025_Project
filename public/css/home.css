@@ -72,23 +72,6 @@ nav {
     border-radius: 5px;
 }
 
-/* Upload Image Section */
-.upload-section {
-    text-align: center;
-    margin: 50px auto;
-    padding: 30px;
-    border: 2px dashed #ccc;
-    width: 50%;
-    border-radius: 10px;
-    background: #f9f9f9;
-}
-
-.upload-section h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 15px;
-}
-
 #imageInput {
     margin: 10px 0;
     padding: 10px;
@@ -141,4 +124,73 @@ footer {
     padding: 20px;
     width: 100%;
     position: relative;
+}
+
+/* Upload Image Section */
+.upload-section {
+    text-align: center;
+    margin: 20px auto; /* Reduced margin */
+    padding: 30px;
+    border: 2px dashed #ccc;
+    width: 50%;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+.upload-section h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.loading-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Space it below the upload section */
+}
+
+.loading-bar {
+    width: 60%;
+    height: 5px;
+    background: linear-gradient(to right, #ffdd00, #ffa500);
+    animation: loadingAnimation 2s infinite linear;
+    border-radius: 5px;
+}
+
+@keyframes loadingAnimation {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+.result-section {
+    text-align: center;
+    width: 60%;
+}
+
+#result {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Animal Image */
+#animalImageContainer {
+    display: none;
+    margin-top: 20px;
+}
+
+#animalImage {
+    max-width: 300px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Facts Container */
+#factsContainer {
+    margin-top: 20px;
+    white-space: pre-line; /* Ensures new lines are properly displayed */
 }
