@@ -10,7 +10,8 @@
             "uses": ["meat", "milk", "horns", "dung"],
             "domestication_changes": "Slight physical changes",
             "current_status": "Somewhat common in captivity, threatened in the wild",
-            "taxonomic_class": "1b Bovidae"
+            "taxonomic_class": "1b Bovidae",
+            "Link": "https://en.wikipedia.org/wiki/Gayal"
           },
           {
             "animal": "Domestic duck",
@@ -35,7 +36,7 @@
             "taxonomic_class": "1b Bovidae"
           },
           {
-            "animal": " Arabian camel",
+            "animal": "Dromedary",
             "scientific_name": "Camelus dromedarius",
             "wild_ancestor": "Unknown",
             "domestication_date": "4000 BCE",
@@ -211,6 +212,62 @@
         "current_status": "Very common in the wild and in captivity",
         "taxonomic_class": "2b Galliformes"
     },
+    {
+        "animal": "Elk",
+        "scientific_name": "Cervus canadensis",
+        "wild_ancestor": "Wild elk (Cervus canadensis)",
+        "domestication_date": "Not fully domesticated, but farmed since the 20th century",
+        "origin": "North America",
+        "uses": ["meat", "velvet antlers", "hunting", "tourism", "show"],
+        "domestication_changes": "Partially tame, minor physical changes",
+        "current_status": "Farmed in captivity, wild populations still common",
+        "taxonomic_class": "1a Artiodactyla except Bovidae"
+      },
+      {
+        "animal": "Beaver",
+        "scientific_name": "Castor canadensis",
+        "wild_ancestor": "North American beaver (Castor canadensis)",
+        "domestication_date": "Not fully domesticated, but historically semi-domesticated",
+        "origin": "North America",
+        "uses": ["fur", "meat", "castoreum", "ecosystem engineering", "pest control", "research"],
+        "domestication_changes": "Tame in captivity, no significant physical changes",
+        "current_status": "Beavers are primarily wild, but some are kept in captivity for conservation and research",
+        "taxonomic_class": "1d Rodentia"
+      },
+      {
+        "animal": "Opossum",
+        "scientific_name": "Didelphis virginiana",
+        "wild_ancestor": "Virginia opossum (Didelphis virginiana)",
+        "domestication_date": "Not fully domesticated, but occasionally kept as pets",
+        "origin": "North America",
+        "uses": ["pest control", "research", "show", "pets"],
+        "domestication_changes": "Tame in captivity, no significant physical changes",
+        "current_status": "Common in the wild, rare in captivity",
+        "taxonomic_class": "1e Other mammals"
+      },
+      {
+        "animal": "Raccoon",
+        "scientific_name": "Procyon lotor",
+        "wild_ancestor": "Common raccoon (Procyon lotor)",
+        "domestication_date": "Not fully domesticated, but occasionally kept as pets",
+        "origin": "North America",
+        "uses": ["pest control", "research", "show", "pets"],
+        "domestication_changes": "Tame in captivity, no significant physical changes",
+        "current_status": "Very common in the wild, occasionally kept in captivity",
+        "taxonomic_class": "1e Other mammals"
+      },
+      {
+        "animal": "Ixodes scapularis",
+        "scientific_name": "Ixodes scapularis",
+        "wild_ancestor": "Black-legged tick (Ixodes scapularis)",
+        "domestication_date": "Not domesticated, but maintained for research",
+        "origin": "North America",
+        "uses": ["research", "disease vector studies"],
+        "domestication_changes": "No significant changes, but some are maintained in labs",
+        "current_status": "Common in the wild, maintained in research facilities",
+        "taxonomic_class": "6c Arachnida"
+      },
+      
     {
         "animal": "Guinea pig",
         "scientific_name": "Cavia porcellus",
