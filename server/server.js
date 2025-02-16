@@ -1,57 +1,58 @@
 const express = require('express');
+const path = require('path');
 const multer = require('multer');
 const dotenv = require('dotenv');
-const path = require('path');
-const classifyAnimalHelper = require('./animal_classifier'); // Import classification function
+const axios = require('axios');
+const FormData = require('form-data');
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configure Multer to store files in memory (instead of saving them to disk)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// Middleware
 app.use(express.static(path.join(__dirname, '../public')));
 
 /**
- * Upload an image and classify the animal (without saving locally)
+ * Upload an image and classify the animal
  */
 app.post('/upload', upload.single('image'), async (req, res) => {
-    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+    if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+    }
 
     try {
-        const imageBuffer = req.file.buffer; // Image as buffer (in memory)
-        const classifiedAnimal = await classifyAnimalHelper(imageBuffer); // Pass buffer to classifier
+        // Requires Node.js v18+
+        const blob = new Blob([req.file.buffer], { type: req.file.mimetype });
+        const buffer = Buffer.from(await blob.arrayBuffer());
 
-        if (!classifiedAnimal) {
-            return res.status(500).json({ error: 'Could not determine the animal' });
-        }
+        const formData = new FormData();
+        formData.append("file", buffer, {
+            filename: "image.jpg",
+            contentType: req.file.mimetype
+        });
+
+        const externalAPIResponse = await axios.post(
+            "https://cuddly-swim-production.up.railway.app/classify-animal",
+            formData,
+            {
+                headers: {
+                    ...formData.getHeaders(),
+                }
+            }
+        );
+        const classifiedAnimal = externalAPIResponse.data.animal;
 
         res.json({ 
             message: 'Image successfully uploaded and classified', 
             animal: classifiedAnimal 
         });
     } catch (error) {
-        console.error(error);
+        console.error("Error classifying image:", error);
         res.status(500).json({ error: 'Classification failed' });
     }
-});
-
-/**
- * Get animal facts from Wikipedia.
- */
-app.get('/animal-facts/:animal_name', async (req, res) => {
-    const animalName = req.params.animal_name;
-    const facts = await getAnimalFacts(animalName);
-
-    if (!facts) {
-        return res.status(404).json({ error: `No Wikipedia page found for '${animalName}'` });
-    }
-
-    res.json({ animal: animalName, facts });
 });
 
 /**
