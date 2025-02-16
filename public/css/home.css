@@ -8,6 +8,22 @@
     font-family: 'Roboto', sans-serif;
 }
 
+/* Ensure the full page fills the viewport */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content should expand to push footer down */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically if needed */
+    align-items: center;
+}
+
 /* Navbar */
 header {
     background: white;
@@ -24,12 +40,29 @@ nav {
     width: 80%;
 }
 
-.site-name h1 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+/* Site Branding: Logo + Stacked Text */
+.site-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between logo and text */
 }
 
+/* Logo Styling */
+.logo {
+    width: 50px; /* Adjust size */
+    height: auto;
+}
+
+.site-name {
+    display: flex;
+    flex-direction: column; /* Stack text vertically */
+    font-size: 18px; /* Reduce text size */
+    font-weight: bold;
+    color: #333;
+    line-height: 1; /* Reduce space between text */
+}
+
+/* Login Button */
 .login-btn {
     background: #ffdd00;
     border: none;
@@ -78,11 +111,12 @@ button[type="submit"]:hover {
     background: #333;
 }
 
+/* Center preview image */
 #preview-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers the content horizontally */
-    justify-content: center; /* Centers the content vertically (if needed) */
+    align-items: center;
+    justify-content: center;
     margin-top: 20px;
     text-align: center;
 }
@@ -99,10 +133,12 @@ button[type="submit"]:hover {
     display: none;
 }
 
-/* Footer */
+/* Footer stays at the bottom */
 footer {
     background: black;
     color: white;
     text-align: center;
     padding: 20px;
+    width: 100%;
+    position: relative;
 }

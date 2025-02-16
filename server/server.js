@@ -1,59 +1,65 @@
 const express = require('express');
 const multer = require('multer');
+const dotenv = require('dotenv');
 const path = require('path');
-const fs = require('fs');
+const classifyAnimalHelper = require('./animal_classifier'); // Import classification function
+
+dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-const imageDir = path.join(__dirname, '../public/images');
-if (!fs.existsSync(imageDir)) {
-    fs.mkdirSync(imageDir, { recursive: true });
-}
+// Configure Multer to store files in memory (instead of saving them to disk)
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, imageDir);
-    },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname).toLowerCase();
-        const allowedExts = ['.png', '.jpg', '.jpeg'];
-
-        if (!allowedExts.includes(ext)) {
-            return cb(new Error('Invalid file type. Only PNG and JPG are allowed.'));
-        }
-
-        cb(null, `image${ext}`);
-    }
-});
-
-const upload = multer({ 
-    storage: storage,
-    fileFilter: (req, file, cb) => {
-        const ext = path.extname(file.originalname).toLowerCase();
-        if (!['.png', '.jpg', '.jpeg'].includes(ext)) {
-            return cb(new Error('Only PNG and JPG files are allowed.'), false);
-        }
-        cb(null, true);
-    }
-});
-
+// Middleware
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.post('/upload', upload.single('image'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ error: 'No file uploaded' });
+/**
+ * Upload an image and classify the animal (without saving locally)
+ */
+app.post('/upload', upload.single('image'), async (req, res) => {
+    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+
+    try {
+        const imageBuffer = req.file.buffer; // Image as buffer (in memory)
+        const classifiedAnimal = await classifyAnimalHelper(imageBuffer); // Pass buffer to classifier
+
+        if (!classifiedAnimal) {
+            return res.status(500).json({ error: 'Could not determine the animal' });
+        }
+
+        res.json({ 
+            message: 'Image successfully uploaded and classified', 
+            animal: classifiedAnimal 
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Classification failed' });
     }
-    res.json({ 
-        message: 'Image uploaded successfully', 
-        filePath: `/images/${req.file.filename}`
-    });
 });
 
+/**
+ * Get animal facts from Wikipedia.
+ */
+app.get('/animal-facts/:animal_name', async (req, res) => {
+    const animalName = req.params.animal_name;
+    const facts = await getAnimalFacts(animalName);
+
+    if (!facts) {
+        return res.status(404).json({ error: `No Wikipedia page found for '${animalName}'` });
+    }
+
+    res.json({ animal: animalName, facts });
+});
+
+/**
+ * Serve home page (`home.html`)
+ */
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/home.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
+// Start the server
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
