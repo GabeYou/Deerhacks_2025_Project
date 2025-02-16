@@ -5,6 +5,7 @@ import json
 import wikipediaapi
 import os
 import random
+from flask_cors import CORS
 
 # OpenAI API Key (Replace with your actual API key)
 API_KEY = os.getenv("API_KEY")
@@ -14,6 +15,7 @@ OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 
 # Flask App
 app = Flask(__name__)
+CORS(app)
 
 with open("Animals.json", "r", encoding="utf-8") as file:
     animals_data = json.load(file)["animals"]
