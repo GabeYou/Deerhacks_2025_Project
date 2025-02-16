@@ -149,6 +149,39 @@ def classify_helper(image_file):
         "fake_facts": fake_facts
     }, 200
 
+def generate_trivia_game_helper():
+    """
+    Generates a trivia game with 9 animal images and 5 facts about one correct animal.
+    """
+    # Step 1: Get 9 random animals
+    animals = get_random_animals_helper(9)
+
+    # Step 2: Select one animal as the correct answer
+    correct_animal = random.choice(animals)
+    correct_animal_name = correct_animal["animal"]
+    correct_animal_image = correct_animal.get("image_url", "No image available")
+
+    # Step 3: Get 5 facts about the correct animal
+    facts_raw = get_animal_facts_helper(correct_animal_name)
+    if not facts_raw:
+        return {"error": f"No facts found for '{correct_animal_name}'"}, 404
+
+    # Step 4: Split and clean facts
+    facts = facts_raw.split("\n")  # Split into list of facts
+    facts = [fact.strip() for fact in facts if fact.strip()]  # Remove empty entries
+    facts = facts[:5]  # Ensure only 5 facts
+
+    # Step 5: Extract image URLs
+    image_urls = [animal["image_url"] for animal in animals if "image_url" in animal]
+
+    return {
+        "correct_animal": correct_animal_name,
+        "correct_animal_image": correct_animal_image,
+        "facts": facts,
+        "image_urls": image_urls
+    }, 200
+
+
 
 # -------------------- Routes -------------------- #
 
@@ -187,6 +220,15 @@ def classify():
 
     response, status_code = classify_helper(request.files['file'])
     return jsonify(response), status_code
+
+@app.route('/trivia-game', methods=['GET'])
+def trivia_game():
+    """
+    Returns 9 animal images and 5 facts about one correct animal.
+    """
+    response, status_code = generate_trivia_game_helper()
+    return jsonify(response), status_code
+
 
 
 if __name__ == '__main__':
