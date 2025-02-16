@@ -5,13 +5,34 @@ import json
 import wikipediaapi
 import os
 import random
+import cloudinary
+import cloudinary.uploader
 from flask_cors import CORS
+from pymongo import MongoClient
+import uuid
+
+MONGO_PASSWORD = os.getenv("MONGOPW")  # Get MongoDB password from ENV VAR
+if not MONGO_PASSWORD:
+    raise ValueError("Error: MONGOPW environment variable not set!")
+
+MONGO_URI = f"mongodb+srv://mongo:{MONGO_PASSWORD}@cluster0.lbn4o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+try:
+    client = MongoClient(MONGO_URI)
+    db = client["user"]  # Database name
+    classified_animals_collection = db["classified_animals"]  # Collection
+    print("Successfully connected to MongoDB!")
+except Exception as e:
+    print(f"MongoDB Connection Error: {e}")
 
 # OpenAI API Key (Replace with your actual API key)
 API_KEY = os.getenv("API_KEY")
 
 # OpenAI API endpoint
 OPENAI_URL = "https://api.openai.com/v1/chat/completions"
+
+
+IMGBB_API_KEY = os.getenv("IMG_API_KEY")
 
 # Flask App
 app = Flask(__name__)
@@ -21,6 +42,41 @@ with open("Animals.json", "r", encoding="utf-8") as file:
     animals_data = json.load(file)["animals"]
 
 # -------------------- Helper Functions -------------------- #
+
+def store_classification_in_db(user_id, image_file, classified_animal, real_facts):
+    """
+    Stores classified animal data in MongoDB.
+    Converts the image to Base64 before inserting it into the database.
+    """
+    try:
+        existing_entry = classified_animals_collection.find_one({"user_id": user_id, "animal": classified_animal})
+
+        if existing_entry:
+            print(f"⚠️ Animal '{classified_animal}' already exists for user {user_id}. Skipping insertion.")
+            return False  # Avoid duplicate entry
+
+        # Move file pointer to start (if it has been read before)
+        image_file.seek(0)
+
+        # Convert image to Base64
+        image_base64 = base64.b64encode(image_file.read()).decode("utf-8")
+
+        # Create entry
+        new_entry = {
+            "user_id": user_id,
+            "animal": classified_animal,
+            "image_base64": image_base64,  # ✅ Base64-encoded image
+            "real_facts": real_facts
+        }
+
+        # Insert into MongoDB
+        classified_animals_collection.insert_one(new_entry)
+        print(f"Stored classification for user {user_id}: {classified_animal}")
+
+        return True
+    except Exception as e:
+        print(f"MongoDB Insert Error: {e}")
+        return False
 
 def get_random_animals_helper(count):
     """
@@ -221,6 +277,13 @@ def classify():
         return jsonify({"error": "No image file uploaded"}), 400
 
     response, status_code = classify_helper(request.files['file'])
+
+    if status_code == 200:
+        classified_animal = response["classified_animal"]
+        real_facts = response["real_facts"]
+
+        store_classification_in_db(1, request.files['file'], classified_animal, real_facts)
+
     return jsonify(response), status_code
 
 @app.route('/trivia-game', methods=['GET'])
@@ -230,6 +293,36 @@ def trivia_game():
     """
     response, status_code = generate_trivia_game_helper()
     return jsonify(response), status_code
+
+@app.route('/user-collection', methods=['GET'])
+def get_user_collection():
+    """
+    Retrieves all classified animals for user_id=1.
+    Returns the images as Base64-encoded data URIs for easy frontend rendering.
+    """
+    user_id = 1  # Static user ID for now
+
+    try:
+        # Fetch all classified animals for user_id=1
+        user_entries = list(classified_animals_collection.find({"user_id": user_id}))
+
+        if not user_entries:
+            return jsonify({"message": "No data found for this user."}), 404
+
+        # Process and format the data for frontend
+        formatted_entries = []
+        for entry in user_entries:
+            formatted_entries.append({
+                "animal": entry["animal"],
+                "real_facts": entry["real_facts"],
+                "image": f"data:image/jpeg;base64,{entry['image_base64']}"  # Convert Base64 to Data URI
+            })
+
+        return jsonify({"user_id": user_id, "classified_animals": formatted_entries}), 200
+
+    except Exception as e:
+        print(f"Error fetching user collection: {e}")
+        return jsonify({"error": "Failed to retrieve data"}), 500
 
 
 
