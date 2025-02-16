@@ -22,7 +22,7 @@
 
     <div class="main-content">
         <section class="upload-section">
-            <h2>Upload Your Image</h2>
+            <h2>Upload Your Image (must be .jpg)</h2>
             <form id="upload-form">
                 <input type="file" id="imageInput" accept="image/*">
                 <button type="submit">Upload</button>
@@ -53,8 +53,16 @@
                     <div id="factsContainer"></div>
                 </div>
             </div>
-                      
         </section>
+        <section class="quiz-section" id="quizSection" style="display: none;">
+            <h2>Can You Spot the Fake Facts?</h2>
+            <p>Select the two facts that you think are fake:</p>
+            <form id="quizForm">
+                <div id="quizContainer"></div>
+                <button type="submit" id="submitQuizBtn">Submit Answers</button>
+            </form>
+            <div id="quizResult" class="quiz-result"></div>
+        </section>        
     </div>
 
     <footer>

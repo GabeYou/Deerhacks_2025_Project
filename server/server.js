@@ -34,12 +34,18 @@ app.post('/upload-and-get-facts', upload.single('image'), async (req, res) => {
         });
 
         const classificationResponse = await axios.post(
-            "https://cuddly-swim-production.up.railway.app/classify-animal",
+            "https://cuddly-swim-production.up.railway.app/classify",
             formData,
             { headers: { ...formData.getHeaders() } }
         );
 
-        const classifiedAnimal = classificationResponse.data.animal;
+        console.log(JSON.stringify(classificationResponse.data, null, 2));
+
+        const { classified_animal, fake_facts, real_facts } = classificationResponse.data;
+
+        const classifiedAnimal = classified_animal;
+        const fakeFacts = fake_facts;
+        const realFacts = real_facts;
         console.log(`Classified Animal: ${classifiedAnimal}`);
 
         const animalFactsResponse = await axios.get(
@@ -51,7 +57,9 @@ app.post('/upload-and-get-facts', upload.single('image'), async (req, res) => {
         res.json({
             message: 'Image successfully uploaded, classified, and facts retrieved',
             animal: classifiedAnimal,
-            facts: animalFacts
+            facts: animalFacts,
+            fake_facts: fakeFacts,
+            real_facts: realFacts
         });
 
     } catch (error) {

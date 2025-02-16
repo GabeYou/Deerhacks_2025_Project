@@ -20,7 +20,7 @@ html, body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centers content vertically if needed */
+    justify-content: center;
     align-items: center;
 }
 
@@ -40,26 +40,25 @@ nav {
     width: 80%;
 }
 
-/* Site Branding: Logo + Stacked Text */
 .site-brand {
     display: flex;
     align-items: center;
-    gap: 10px; /* Space between logo and text */
+    gap: 10px;
 }
 
 /* Logo Styling */
 .logo {
-    width: 50px; /* Adjust size */
+    width: 50px;
     height: auto;
 }
 
 .site-name {
     display: flex;
-    flex-direction: column; /* Stack text vertically */
-    font-size: 18px; /* Reduce text size */
+    flex-direction: column;
+    font-size: 18px;
     font-weight: bold;
     color: #333;
-    line-height: 1; /* Reduce space between text */
+    line-height: 1;
 }
 
 /* Login Button */
@@ -116,7 +115,6 @@ button[type="submit"]:hover {
     display: none;
 }
 
-/* Footer stays at the bottom */
 footer {
     background: black;
     color: white;
@@ -129,7 +127,7 @@ footer {
 /* Upload Image Section */
 .upload-section {
     text-align: center;
-    margin: 20px auto; /* Reduced margin */
+    margin: 20px auto;
     padding: 30px;
     border: 2px dashed #ccc;
     width: 50%;
@@ -148,7 +146,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px; /* Space it below the upload section */
+    margin-top: 20px;
 }
 
 .loading-bar {
@@ -209,7 +207,7 @@ footer {
     color: #0056b3;
 }
 
-/* Facts Box (Large Container) */
+/* Facts Box */
 .facts-box {
     display: none;
     margin-top: 10px;
@@ -225,7 +223,6 @@ footer {
     margin-right: auto;
 }
 
-/* Individual Fact Boxes */
 .fact-item {
     padding: 10px;
     background: rgba(255, 255, 255, 0.805);
@@ -233,4 +230,79 @@ footer {
     border-radius: 5px;
     margin-bottom: 8px;
     font-size: 16px;
+}
+
+.quiz-section {
+    display: none;
+    margin-top: 10px;
+    padding: 15px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background: #f9f9f9;
+    width: 80%;
+    max-width: 600px;
+    text-align: left;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.quiz-section h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.quiz-section p {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+/* Individual Quiz Fact */
+.quiz-item {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.805);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Quiz Checkbox Styling */
+.quiz-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Submit Button (Same Style as Upload Button) */
+#submitQuizBtn {
+    background: black;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+#submitQuizBtn:hover {
+    background: #333;
+}
+
+/* Quiz Result Styling */
+.quiz-result {
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 18px;
+    text-align: center;
 }
