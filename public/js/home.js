@@ -174,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
 const pokedexBtn = document.getElementById("pokedex-btn");
 const pokedexModal = document.getElementById("pokedex-modal");
 const closeModal = document.querySelector(".close-btn");
@@ -184,16 +185,10 @@ const animalName = document.getElementById("animal-name");
 const animalPhoto = document.getElementById("animal-photo");
 const animalFacts = document.getElementById("animal-facts");
 
-// Sample Collected Animals
-const collectedAnimals = [
-    { name: "Red Fox", image: "https://example.com/redfox.jpg", facts: "Red foxes are highly adaptable." },
-    { name: "Bald Eagle", image: "https://example.com/baldeagle.jpg", facts: "Bald eagles have a wingspan of 7 feet." }
-];
-
 // Open Pokedex
-pokedexBtn.addEventListener("click", () => {
+pokedexBtn.addEventListener("click", async () => {
     pokedexModal.style.display = "flex";
-    displayPokedex();
+    await fetchPokedexData(); // Fetch and display collected animals from API
 });
 
 // Close Pokedex
@@ -202,18 +197,35 @@ closeModal.addEventListener("click", () => {
     pokedexEntry.classList.add("hidden");
 });
 
+// Fetch Collected Animals from API
+async function fetchPokedexData() {
+    try {
+        const response = await fetch("https://cuddly-swim-production.up.railway.app/user-collection"); // Replace with actual API URL
+        const data = await response.json();
+
+        if (data.classified_animals) {
+            displayPokedex(data.classified_animals);
+        } else {
+            console.error("No collected animals found.");
+        }
+    } catch (error) {
+        console.error("Error fetching Pokédex data:", error);
+    }
+}
+
 // Display Pokedex List
-function displayPokedex() {
+function displayPokedex(collectedAnimals) {
     pokedexList.innerHTML = ""; // Clear previous list
+
     collectedAnimals.forEach((animal, index) => {
         const entry = document.createElement("div");
-        entry.textContent = animal.name;
+        entry.textContent = animal.animal; // Display the animal name
         entry.classList.add("pokedex-item");
         entry.style.cursor = "pointer";
         entry.style.padding = "10px";
         entry.style.border = "1px solid black";
         entry.style.borderRadius = "5px";
-        entry.addEventListener("click", () => showAnimalEntry(index));
+        entry.addEventListener("click", () => showAnimalEntry(animal)); // Pass the actual animal object
         pokedexList.appendChild(entry);
     });
 }
@@ -221,21 +233,18 @@ function displayPokedex() {
 // Get Pokedex title and list container
 const pokedexTitle = document.querySelector("#pokedex-modal h2");
 
-function showAnimalEntry(index) {
-    const animal = collectedAnimals[index];
-
+function showAnimalEntry(animal) {
     // Hide Pokedex title and list
     pokedexTitle.style.display = "none";
     pokedexList.style.display = "none";
 
     // Show the selected animal entry
-    animalName.textContent = animal.name;
-    animalPhoto.src = animal.image;
-    animalFacts.textContent = animal.facts;
+    animalName.textContent = animal.animal;
+    animalPhoto.src = animal.image; // Base64 image is already formatted as a Data URI
+    animalFacts.innerHTML = animal.real_facts.join("<br>"); // Join facts with line breaks
 
     pokedexEntry.classList.remove("hidden");
 }
-
 
 // Back to List
 backBtn.addEventListener("click", () => {
@@ -245,6 +254,8 @@ backBtn.addEventListener("click", () => {
     pokedexTitle.style.display = "block";
     pokedexList.style.display = "block";
 });
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const loginBtn = document.querySelector(".login-btn");
